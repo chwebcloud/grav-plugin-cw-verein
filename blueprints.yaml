@@ -1,0 +1,69 @@
+name: 'CHWEB Verein'
+slug: cw-verein
+type: plugin
+version: 1.3.0
+description: 'Members, documents and events of a club or association as Flex directories, with protected document delivery: public, signed-in members or committee only.'
+icon: users
+author:
+  name: 'CHWEB GmbH'
+  email: info@chweb.ch
+  url: 'https://chweb.ch'
+homepage: 'https://chweb.ch'
+bugs: 'https://github.com/chwebcloud/grav-plugin-cw-verein/issues'
+docs: 'https://github.com/chwebcloud/grav-plugin-cw-verein/blob/main/README.md'
+keywords: association, club, members, documents, events, flex, directory, chweb
+license: MIT
+
+compatibility:
+  grav:
+    - '2.0'
+
+dependencies:
+  - { name: grav, version: '>=2.0.0' }
+  - { name: flex-objects, version: '>=1.4.0' }
+  - { name: login, version: '>=3.9.0' }
+
+form:
+  validation: loose
+  fields:
+    enabled:
+      type: toggle
+      label: PLUGIN_CW_VEREIN.ENABLED_LABEL
+      highlight: 1
+      default: 1
+      options: { 1: PLUGIN_CW_VEREIN.YES_OPTION, 0: PLUGIN_CW_VEREIN.NO_OPTION }
+      validate: { type: bool }
+    route:
+      type: text
+      label: PLUGIN_CW_VEREIN.ROUTE_LABEL
+      default: '/dokument'
+      help: PLUGIN_CW_VEREIN.ROUTE_HELP
+    vorstand_gruppe:
+      type: text
+      label: PLUGIN_CW_VEREIN.VORSTAND_GRUPPE_LABEL
+      default: 'Vorstand'
+      help: PLUGIN_CW_VEREIN.VORSTAND_GRUPPE_HELP
+    gruppen:
+      type: list
+      collapsible: true
+      collapsed: true
+      label: PLUGIN_CW_VEREIN.GRUPPEN_LABEL
+      help: PLUGIN_CW_VEREIN.GRUPPEN_HELP
+      style: vertical
+      fields:
+        .schluessel:
+          type: text
+          label: PLUGIN_CW_VEREIN.SCHLUESSEL_LABEL
+          placeholder: PLUGIN_CW_VEREIN.SCHLUESSEL_PLACEHOLDER
+        .titel:
+          type: text
+          label: PLUGIN_CW_VEREIN.TITEL_LABEL
+          placeholder: PLUGIN_CW_VEREIN.TITEL_PLACEHOLDER
+    wildkameras:
+      type: toggle
+      label: PLUGIN_CW_VEREIN.WILDKAMERAS_LABEL
+      help: PLUGIN_CW_VEREIN.WILDKAMERAS_HELP
+      highlight: 1
+      default: 0
+      options: { 1: PLUGIN_CW_VEREIN.YES_OPTION, 0: PLUGIN_CW_VEREIN.NO_OPTION }
+      validate: { type: bool }

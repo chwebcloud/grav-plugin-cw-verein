@@ -1,0 +1,135 @@
+title: Dokumente
+description: 'Vereinsdokumente mit Datei, Kategorie und Zugriffsstufe.'
+type: flex-objects
+icon: file
+
+config:
+  admin:
+    router:
+      path: '/cw-verein/dokumente'
+    menu:
+      list:
+        route: '/flex-objects/dokumente'
+        title: Dokumente
+        icon: fa-file
+        authorize: ['admin.verein.dokumente.list', 'admin.verein', 'admin.super']
+        priority: 2
+    permissions:
+      admin.verein.dokumente:
+        type: crudpl
+        label: 'Verein: Dokumente'
+    list:
+      title: titel
+      fields:
+        titel:
+          field:
+            label: PLUGIN_CW_VEREIN.FIELD_LABEL
+            type: text
+          link: edit
+        kategorie:
+          field:
+            label: PLUGIN_CW_VEREIN.FIELD_LABEL_2
+            type: select
+            options:
+              'statuten': PLUGIN_CW_VEREIN.KATEGORIE_STATUTEN_OPTION
+              'gv': PLUGIN_CW_VEREIN.KATEGORIE_GV_OPTION
+              'vertraege': PLUGIN_CW_VEREIN.KATEGORIE_VERTRAEGE_OPTION
+              'plaene': PLUGIN_CW_VEREIN.KATEGORIE_PLAENE_OPTION
+              'logo': PLUGIN_CW_VEREIN.KATEGORIE_LOGO_OPTION
+              'sonstiges': PLUGIN_CW_VEREIN.KATEGORIE_SONSTIGES_OPTION
+        datum:
+          field:
+            label: PLUGIN_CW_VEREIN.FIELD_LABEL_3
+            type: date
+        zugriff:
+          field:
+            label: PLUGIN_CW_VEREIN.FIELD_LABEL_4
+            type: select
+            options:
+              'oeffentlich': PLUGIN_CW_VEREIN.ZUGRIFF_OEFFENTLICH_OPTION
+              'mitglieder': PLUGIN_CW_VEREIN.ZUGRIFF_MITGLIEDER_OPTION
+              'vorstand': PLUGIN_CW_VEREIN.ZUGRIFF_VORSTAND_OPTION
+          width: 10
+      options:
+        per_page: 30
+        order:
+          by: datum
+          dir: desc
+    edit:
+      title:
+        template: "{{ object.titel ?? 'Neues Dokument' }}"
+    preview:
+      enabled: false
+
+  data:
+    object: 'Grav\Common\Flex\Types\Generic\GenericObject'
+    collection: 'Grav\Common\Flex\Types\Generic\GenericCollection'
+    index: 'Grav\Common\Flex\Types\Generic\GenericIndex'
+    storage:
+      class: 'Grav\Framework\Flex\Storage\FolderStorage'
+      options:
+        folder: 'user-data://cw-verein/dokumente'
+        pattern: '{FOLDER}/{KEY}/{FILE}{EXT}'
+        file: item
+        key_len: 32
+        indexed: true
+        formatter:
+          class: 'Grav\Framework\File\Formatter\JsonFormatter'
+    ordering:
+      datum: DESC
+    search:
+      options:
+        contains: 1
+      fields:
+        - titel
+        - beschreibung
+
+form:
+  validation: loose
+  fields:
+    published:
+      type: toggle
+      label: PLUGIN_CW_VEREIN.PUBLISHED_LABEL
+      highlight: 1
+      default: 1
+      options: { 1: PLUGIN_CW_VEREIN.YES_OPTION, 0: PLUGIN_CW_VEREIN.NO_OPTION }
+      validate: { type: bool }
+    titel:
+      type: text
+      label: PLUGIN_CW_VEREIN.TITEL_LABEL_2
+      validate:
+        required: true
+    kategorie:
+      type: select
+      label: PLUGIN_CW_VEREIN.KATEGORIE_LABEL
+      default: sonstiges
+      options:
+        statuten: PLUGIN_CW_VEREIN.KATEGORIE_STATUTEN_OPTION
+        gv: PLUGIN_CW_VEREIN.KATEGORIE_GV_OPTION
+        vertraege: PLUGIN_CW_VEREIN.KATEGORIE_VERTRAEGE_OPTION
+        plaene: PLUGIN_CW_VEREIN.KATEGORIE_PLAENE_OPTION
+        logo: PLUGIN_CW_VEREIN.KATEGORIE_LOGO_OPTION
+        sonstiges: PLUGIN_CW_VEREIN.KATEGORIE_SONSTIGES_OPTION
+    datum:
+      type: date
+      label: PLUGIN_CW_VEREIN.DATUM_LABEL
+      help: PLUGIN_CW_VEREIN.DATUM_HELP
+    zugriff:
+      type: select
+      label: PLUGIN_CW_VEREIN.ZUGRIFF_LABEL
+      default: mitglieder
+      options:
+        oeffentlich: PLUGIN_CW_VEREIN.ZUGRIFF_OEFFENTLICH_OPTION
+        mitglieder: PLUGIN_CW_VEREIN.ZUGRIFF_MITGLIEDER_OPTION
+        vorstand: PLUGIN_CW_VEREIN.ZUGRIFF_VORSTAND_OPTION
+    beschreibung:
+      type: textarea
+      label: PLUGIN_CW_VEREIN.BESCHREIBUNG_LABEL
+      rows: 3
+    datei:
+      type: file
+      label: PLUGIN_CW_VEREIN.DATEI_LABEL
+      destination: self@
+      multiple: false
+      accept: ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.jpg', '.jpeg', '.png', '.webp', '.ai', '.dxf', '.zip', '.txt']
+      help: PLUGIN_CW_VEREIN.DATEI_HELP

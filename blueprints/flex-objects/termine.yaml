@@ -1,0 +1,129 @@
+title: Termine
+description: 'Vereinstermine: GV, Hegetage, Jagdanlässe.'
+type: flex-objects
+icon: calendar
+
+config:
+  admin:
+    router:
+      path: '/cw-verein/termine'
+    menu:
+      list:
+        route: '/flex-objects/termine'
+        title: Termine
+        icon: fa-calendar
+        authorize: ['admin.verein.termine.list', 'admin.verein', 'admin.super']
+        priority: 0
+    permissions:
+      admin.verein.termine:
+        type: crudpl
+        label: 'Verein: Termine'
+    list:
+      title: titel
+      fields:
+        datum:
+          field:
+            label: PLUGIN_CW_VEREIN.FIELD_LABEL_12
+            type: date
+          link: edit
+        titel:
+          field:
+            label: PLUGIN_CW_VEREIN.FIELD_LABEL_13
+            type: text
+        kategorie:
+          field:
+            label: PLUGIN_CW_VEREIN.FIELD_LABEL_14
+            type: select
+            options:
+              'gv': PLUGIN_CW_VEREIN.KATEGORIE_GV_OPTION_2
+              'hege': PLUGIN_CW_VEREIN.KATEGORIE_HEGE_OPTION
+              'jagd': PLUGIN_CW_VEREIN.KATEGORIE_JAGD_OPTION
+              'anlass': PLUGIN_CW_VEREIN.KATEGORIE_ANLASS_OPTION
+        ort:
+          field:
+            label: PLUGIN_CW_VEREIN.FIELD_LABEL_15
+            type: text
+        oeffentlich:
+          field:
+            label: PLUGIN_CW_VEREIN.FIELD_LABEL_16
+            type: toggle
+          width: 8
+      options:
+        per_page: 30
+        order:
+          by: datum
+          dir: desc
+    edit:
+      title:
+        template: "{{ object.titel ?? 'Neuer Termin' }}"
+    preview:
+      enabled: false
+
+  data:
+    object: 'Grav\Common\Flex\Types\Generic\GenericObject'
+    collection: 'Grav\Common\Flex\Types\Generic\GenericCollection'
+    index: 'Grav\Common\Flex\Types\Generic\GenericIndex'
+    storage:
+      class: 'Grav\Framework\Flex\Storage\SimpleStorage'
+      options:
+        folder: 'user-data://cw-verein/termine.json'
+        formatter:
+          class: 'Grav\Framework\File\Formatter\JsonFormatter'
+    ordering:
+      datum: DESC
+    search:
+      options:
+        contains: 1
+      fields:
+        - titel
+        - ort
+
+form:
+  validation: loose
+  fields:
+    published:
+      type: toggle
+      label: PLUGIN_CW_VEREIN.PUBLISHED_LABEL_3
+      highlight: 1
+      default: 1
+      options: { 1: PLUGIN_CW_VEREIN.YES_OPTION, 0: PLUGIN_CW_VEREIN.NO_OPTION }
+      validate: { type: bool }
+    titel:
+      type: text
+      label: PLUGIN_CW_VEREIN.TITEL_LABEL_3
+      validate:
+        required: true
+    datum:
+      type: date
+      label: PLUGIN_CW_VEREIN.DATUM_LABEL_2
+      validate:
+        required: true
+    zeit:
+      type: text
+      label: PLUGIN_CW_VEREIN.ZEIT_LABEL
+      placeholder: '19:00'
+      size: small
+    ort:
+      type: text
+      label: PLUGIN_CW_VEREIN.ORT_LABEL_2
+    kategorie:
+      type: select
+      label: PLUGIN_CW_VEREIN.KATEGORIE_LABEL_2
+      default: anlass
+      options:
+        gv: PLUGIN_CW_VEREIN.KATEGORIE_GV_OPTION_2
+        hege: PLUGIN_CW_VEREIN.KATEGORIE_HEGE_OPTION
+        jagd: PLUGIN_CW_VEREIN.KATEGORIE_JAGD_OPTION
+        anlass: PLUGIN_CW_VEREIN.KATEGORIE_ANLASS_OPTION
+    oeffentlich:
+      type: toggle
+      label: PLUGIN_CW_VEREIN.OEFFENTLICH_LABEL
+      help: PLUGIN_CW_VEREIN.OEFFENTLICH_HELP
+      highlight: 1
+      default: 0
+      options: { 1: PLUGIN_CW_VEREIN.YES_OPTION, 0: PLUGIN_CW_VEREIN.NO_OPTION }
+      validate: { type: bool }
+    beschreibung:
+      type: textarea
+      label: PLUGIN_CW_VEREIN.BESCHREIBUNG_LABEL_2
+      rows: 4

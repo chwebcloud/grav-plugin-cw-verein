@@ -1,0 +1,127 @@
+title: Wildkameras
+description: 'Verzeichnis der Wildkameras: Name, Besitzer, Standort, Koordinaten, Seite.'
+type: flex-objects
+icon: camera
+
+config:
+  admin:
+    router:
+      path: '/wildkameras'
+    menu:
+      list:
+        route: '/flex-objects/wildkameras'
+        title: Wildkameras
+        icon: fa-camera
+        authorize: ['admin.wildkameras.list', 'admin.wildkameras', 'admin.super']
+        priority: 3
+    permissions:
+      admin.wildkameras:
+        type: crudpl
+        label: Wildkameras
+    list:
+      title: name
+      fields:
+        name:
+          field:
+            label: PLUGIN_CW_VEREIN.FIELD_LABEL_17
+            type: text
+          link: edit
+        besitzer:
+          field:
+            label: PLUGIN_CW_VEREIN.FIELD_LABEL_18
+            type: text
+        standort:
+          field:
+            label: PLUGIN_CW_VEREIN.FIELD_LABEL_19
+            type: text
+        route:
+          field:
+            label: PLUGIN_CW_VEREIN.FIELD_LABEL_20
+            type: text
+        aktiv:
+          field:
+            label: PLUGIN_CW_VEREIN.FIELD_LABEL_21
+            type: toggle
+          width: 8
+      options:
+        per_page: 30
+        order:
+          by: name
+          dir: asc
+    edit:
+      title:
+        template: "{{ object.name ?? 'Neue Wildkamera' }}"
+    preview:
+      enabled: false
+
+  data:
+    object: 'Grav\Common\Flex\Types\Generic\GenericObject'
+    collection: 'Grav\Common\Flex\Types\Generic\GenericCollection'
+    index: 'Grav\Common\Flex\Types\Generic\GenericIndex'
+    storage:
+      class: 'Grav\Framework\Flex\Storage\SimpleStorage'
+      options:
+        folder: 'user-data://wildkameras/wildkameras.json'
+        formatter:
+          class: 'Grav\Framework\File\Formatter\JsonFormatter'
+    ordering:
+      name: ASC
+    search:
+      options:
+        contains: 1
+      fields:
+        - name
+        - besitzer
+        - standort
+
+form:
+  validation: loose
+  fields:
+    published:
+      type: toggle
+      label: PLUGIN_CW_VEREIN.PUBLISHED_LABEL_4
+      highlight: 1
+      default: 1
+      options: { 1: PLUGIN_CW_VEREIN.YES_OPTION, 0: PLUGIN_CW_VEREIN.NO_OPTION }
+      validate: { type: bool }
+    name:
+      type: text
+      label: PLUGIN_CW_VEREIN.NAME_LABEL_2
+      help: PLUGIN_CW_VEREIN.NAME_HELP
+      validate:
+        required: true
+    besitzer:
+      type: text
+      label: PLUGIN_CW_VEREIN.BESITZER_LABEL
+      help: PLUGIN_CW_VEREIN.BESITZER_HELP
+    standort:
+      type: text
+      label: PLUGIN_CW_VEREIN.STANDORT_LABEL
+      placeholder: PLUGIN_CW_VEREIN.STANDORT_PLACEHOLDER
+    route:
+      type: text
+      label: PLUGIN_CW_VEREIN.ROUTE_LABEL_2
+      help: PLUGIN_CW_VEREIN.ROUTE_HELP_2
+      placeholder: PLUGIN_CW_VEREIN.ROUTE_PLACEHOLDER
+    aktiv:
+      type: toggle
+      label: PLUGIN_CW_VEREIN.AKTIV_LABEL
+      help: PLUGIN_CW_VEREIN.AKTIV_HELP
+      highlight: 1
+      default: 1
+      options: { 1: PLUGIN_CW_VEREIN.YES_OPTION, 0: PLUGIN_CW_VEREIN.NO_OPTION }
+      validate: { type: bool }
+    lat:
+      type: text
+      label: PLUGIN_CW_VEREIN.LAT_LABEL
+      placeholder: '47.1221'
+      size: small
+    lon:
+      type: text
+      label: PLUGIN_CW_VEREIN.LON_LABEL
+      placeholder: '7.8682'
+      size: small
+    bemerkung:
+      type: textarea
+      label: PLUGIN_CW_VEREIN.BEMERKUNG_LABEL_2
+      rows: 3

@@ -1,0 +1,14 @@
+enabled: true
+# Adresse, unter der Dokumente nach Zugriffsprüfung ausgeliefert werden.
+route: /dokument
+# Benutzergruppe, die Dokumente der Stufe «vorstand» sehen darf.
+vorstand_gruppe: Vorstand
+# Zusätzliches Verzeichnis «Wildkameras» (Name, Besitzer, Standort, Koordinaten,
+# Seite) -- für Jagdvereine. Daten unter user/data/wildkameras/wildkameras.json.
+wildkameras: false
+
+# Gliederung der Mitgliederliste. Reihenfolge = Reihenfolge auf der Seite;
+# wer keine Gruppe hat, erscheint unter «mitglieder».
+gruppen:
+  - { schluessel: mitglieder, titel: Vereinsmitglieder }
+  - { schluessel: goenner, titel: Gönner }

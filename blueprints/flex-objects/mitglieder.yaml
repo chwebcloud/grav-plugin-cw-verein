@@ -1,0 +1,185 @@
+title: Mitglieder
+description: 'Mitgliederverzeichnis des Vereins: Name, Funktion, Status, Kontakt.'
+type: flex-objects
+icon: users
+
+config:
+  admin:
+    router:
+      path: '/cw-verein/mitglieder'
+    menu:
+      list:
+        route: '/flex-objects/mitglieder'
+        title: Mitglieder
+        icon: fa-users
+        authorize: ['admin.verein.mitglieder.list', 'admin.verein', 'admin.super']
+        priority: 1
+    permissions:
+      admin.verein.mitglieder:
+        type: crudpl
+        label: 'Verein: Mitglieder'
+    list:
+      title: name
+      fields:
+        name:
+          field:
+            label: PLUGIN_CW_VEREIN.FIELD_LABEL_5
+            type: text
+          link: edit
+        vorname:
+          field:
+            label: PLUGIN_CW_VEREIN.FIELD_LABEL_6
+            type: text
+        funktion:
+          field:
+            label: PLUGIN_CW_VEREIN.FIELD_LABEL_7
+            type: text
+        gruppe:
+          field:
+            label: PLUGIN_CW_VEREIN.FIELD_LABEL_8
+            type: text
+        status:
+          field:
+            label: PLUGIN_CW_VEREIN.FIELD_LABEL_9
+            type: select
+            options:
+              'aktiv': PLUGIN_CW_VEREIN.STATUS_AKTIV_OPTION
+              'passiv': PLUGIN_CW_VEREIN.STATUS_PASSIV_OPTION
+              'goenner': PLUGIN_CW_VEREIN.STATUS_GOENNER_OPTION
+              'ehren': PLUGIN_CW_VEREIN.STATUS_EHREN_OPTION
+          width: 8
+        ort:
+          field:
+            label: PLUGIN_CW_VEREIN.FIELD_LABEL_10
+            type: text
+        sichtbar:
+          field:
+            label: PLUGIN_CW_VEREIN.FIELD_LABEL_11
+            type: toggle
+          width: 8
+      options:
+        per_page: 50
+        order:
+          by: name
+          dir: asc
+    edit:
+      title:
+        template: "{{ object.vorname ?? '' }} {{ object.name ?? 'Neues Mitglied' }}"
+    preview:
+      enabled: false
+
+  data:
+    object: 'Grav\Common\Flex\Types\Generic\GenericObject'
+    collection: 'Grav\Common\Flex\Types\Generic\GenericCollection'
+    index: 'Grav\Common\Flex\Types\Generic\GenericIndex'
+    storage:
+      class: 'Grav\Framework\Flex\Storage\SimpleStorage'
+      options:
+        folder: 'user-data://cw-verein/mitglieder.json'
+        formatter:
+          class: 'Grav\Framework\File\Formatter\JsonFormatter'
+    ordering:
+      name: ASC
+    search:
+      options:
+        contains: 1
+      fields:
+        - name
+        - vorname
+        - ort
+        - funktion
+        - gruppe
+
+form:
+  validation: loose
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+      fields:
+        person:
+          type: tab
+          title: PLUGIN_CW_VEREIN.PERSON_TITLE
+          fields:
+            published:
+              type: toggle
+              label: PLUGIN_CW_VEREIN.PUBLISHED_LABEL_2
+              highlight: 1
+              default: 1
+              options: { 1: PLUGIN_CW_VEREIN.YES_OPTION, 0: PLUGIN_CW_VEREIN.NO_OPTION }
+              validate: { type: bool }
+            vorname:
+              type: text
+              label: PLUGIN_CW_VEREIN.VORNAME_LABEL
+              validate:
+                required: true
+            name:
+              type: text
+              label: PLUGIN_CW_VEREIN.NAME_LABEL
+              validate:
+                required: true
+            funktion:
+              type: text
+              label: PLUGIN_CW_VEREIN.FUNKTION_LABEL
+              placeholder: PLUGIN_CW_VEREIN.FUNKTION_PLACEHOLDER
+              help: PLUGIN_CW_VEREIN.FUNKTION_HELP
+            gruppe:
+              type: select
+              label: PLUGIN_CW_VEREIN.GRUPPE_LABEL
+              data-options@: 'Grav\Plugin\CwVerein\Verein::gruppenOptionen'
+              default: mitglieder
+              help: PLUGIN_CW_VEREIN.GRUPPE_HELP
+            status:
+              type: select
+              label: PLUGIN_CW_VEREIN.STATUS_LABEL
+              default: aktiv
+              options:
+                aktiv: PLUGIN_CW_VEREIN.STATUS_AKTIV_OPTION
+                passiv: PLUGIN_CW_VEREIN.STATUS_PASSIV_OPTION
+                goenner: PLUGIN_CW_VEREIN.STATUS_GOENNER_OPTION
+                ehren: PLUGIN_CW_VEREIN.STATUS_EHREN_OPTION
+            jagdpatent:
+              type: toggle
+              label: PLUGIN_CW_VEREIN.JAGDPATENT_LABEL
+              highlight: 1
+              default: 0
+              options: { 1: PLUGIN_CW_VEREIN.YES_OPTION, 0: PLUGIN_CW_VEREIN.NO_OPTION }
+              validate: { type: bool }
+            eintritt:
+              type: date
+              label: PLUGIN_CW_VEREIN.EINTRITT_LABEL
+            sichtbar:
+              type: toggle
+              label: PLUGIN_CW_VEREIN.SICHTBAR_LABEL
+              help: PLUGIN_CW_VEREIN.SICHTBAR_HELP
+              highlight: 1
+              default: 1
+              options: { 1: PLUGIN_CW_VEREIN.YES_OPTION, 0: PLUGIN_CW_VEREIN.NO_OPTION }
+              validate: { type: bool }
+        kontakt:
+          type: tab
+          title: PLUGIN_CW_VEREIN.KONTAKT_TITLE
+          fields:
+            strasse:
+              type: text
+              label: PLUGIN_CW_VEREIN.STRASSE_LABEL
+            plz:
+              type: text
+              label: PLUGIN_CW_VEREIN.PLZ_LABEL
+              size: small
+            ort:
+              type: text
+              label: PLUGIN_CW_VEREIN.ORT_LABEL
+            email:
+              type: email
+              label: PLUGIN_CW_VEREIN.EMAIL_LABEL
+            telefon:
+              type: text
+              label: PLUGIN_CW_VEREIN.TELEFON_LABEL
+            mobile:
+              type: text
+              label: PLUGIN_CW_VEREIN.MOBILE_LABEL
+            bemerkung:
+              type: textarea
+              label: PLUGIN_CW_VEREIN.BEMERKUNG_LABEL
+              rows: 3
