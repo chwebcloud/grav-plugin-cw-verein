@@ -1,7 +1,7 @@
 name: 'CHWEB Verein'
 slug: cw-verein
 type: plugin
-version: 1.5.0
+version: 1.5.1
 description: 'Members, documents and events of a club or association as Flex directories, with protected document delivery: public, signed-in members or committee only.'
 icon: users
 author:

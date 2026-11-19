@@ -1,3 +1,9 @@
+# v1.5.1
+## 2026-11-19
+
+1. [](#improved)
+    * The note about saving a new document before adding its file is now **visible above the field** instead of hiding in a tooltip. The cryptic *"Method 'POST' is not allowed"* came up twice before the form said so in plain sight.
+
 # v1.5.0
 ## 2026-11-19
 

@@ -126,6 +126,15 @@ form:
       type: textarea
       label: PLUGIN_CW_VEREIN.BESCHREIBUNG_LABEL
       rows: 3
+    # Sichtbar, nicht als Hilfetext: In Admin 2.0 ist `help` ein Tooltip, und
+    # wer die Reihenfolge nicht kennt, bekommt beim Hochladen in ein noch
+    # nicht gespeichertes Dokument nur «Method 'POST' is not allowed» zu
+    # sehen. Zweimal so erlebt, bevor dieser Satz hier stand.
+    datei_hinweis:
+      type: display
+      markdown: true
+      content: PLUGIN_CW_VEREIN.DATEI_HINWEIS
+
     datei:
       type: file
       label: PLUGIN_CW_VEREIN.DATEI_LABEL

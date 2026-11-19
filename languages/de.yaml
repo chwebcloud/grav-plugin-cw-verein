@@ -32,6 +32,7 @@ PLUGIN_CW_VEREIN:
   ZUGRIFF_MITGLIEDER_OPTION: "Angemeldete Mitglieder"
   ZUGRIFF_VORSTAND_OPTION: "Nur Vorstand"
   BESCHREIBUNG_LABEL: "Beschreibung"
+  DATEI_HINWEIS: "**Neues Dokument?** Zuerst den Titel eintragen und speichern — danach lässt sich die Datei hinzufügen. Vorher gibt es den Ordner noch nicht, in den sie gehört."
   DATEI_LABEL: "Datei"
   DATEI_HELP: "Eine Datei je Dokument. PDF wird im Browser geöffnet, alles andere heruntergeladen. Bei einem NEUEN Dokument zuerst Titel eintragen und speichern, dann die Datei hinzufügen — vorher hat das Dokument noch keinen Ort, an dem die Datei liegen könnte."
   FIELD_LABEL_5: "Name"

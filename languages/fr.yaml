@@ -32,6 +32,7 @@ PLUGIN_CW_VEREIN:
   ZUGRIFF_MITGLIEDER_OPTION: "Membres connectés"
   ZUGRIFF_VORSTAND_OPTION: "Comité seulement"
   BESCHREIBUNG_LABEL: "Description"
+  DATEI_HINWEIS: "**Un nouveau document ?** Saisissez d’abord le titre et enregistrez — le fichier pourra ensuite être ajouté. Avant cela, le dossier auquel il appartient n’existe pas encore."
   DATEI_LABEL: "Fichier"
   DATEI_HELP: "Un fichier par document. Un PDF s’ouvre dans le navigateur, tout le reste est téléchargé. Pour un NOUVEAU document, saisissez d’abord le titre et enregistrez, puis ajoutez le fichier — avant cela, le document n’a pas d’endroit où ranger le fichier."
   FIELD_LABEL_5: "Nom"

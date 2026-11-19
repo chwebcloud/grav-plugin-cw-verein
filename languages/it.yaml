@@ -32,6 +32,7 @@ PLUGIN_CW_VEREIN:
   ZUGRIFF_MITGLIEDER_OPTION: "Soci collegati"
   ZUGRIFF_VORSTAND_OPTION: "Solo comitato"
   BESCHREIBUNG_LABEL: "Descrizione"
+  DATEI_HINWEIS: "**Un documento nuovo?** Inserisci prima il titolo e salva — poi potrai aggiungere il file. Prima di allora la cartella a cui appartiene non esiste ancora."
   DATEI_LABEL: "File"
   DATEI_HELP: "Un file per documento. Un PDF si apre nel browser, tutto il resto viene scaricato. Per un documento NUOVO inserisci prima il titolo e salva, poi aggiungi il file — prima di allora il documento non ha un posto dove tenerlo."
   FIELD_LABEL_5: "Cognome"

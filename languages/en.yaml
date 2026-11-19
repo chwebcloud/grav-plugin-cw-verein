@@ -32,6 +32,7 @@ PLUGIN_CW_VEREIN:
   ZUGRIFF_MITGLIEDER_OPTION: "Signed-in members"
   ZUGRIFF_VORSTAND_OPTION: "Committee only"
   BESCHREIBUNG_LABEL: "Description"
+  DATEI_HINWEIS: "**A new document?** Enter the title and save first — then the file can be added. Before that, the folder it belongs in does not exist yet."
   DATEI_LABEL: "File"
   DATEI_HELP: "One file per document. A PDF opens in the browser, everything else is downloaded. On a NEW document, enter the title and save first, then add the file — before that the document has no place for the file to live."
   FIELD_LABEL_5: "Surname"
