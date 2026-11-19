@@ -6,8 +6,7 @@ namespace Grav\Plugin\CwVerein;
 use Grav\Common\Grav;
 
 /**
- * Wer darf was sehen. Drei Stufen: oeffentlich, mitglieder (angemeldet und
- * für die Website berechtigt), vorstand (Gruppe «Vorstand» oder Super-Admin).
+ * Wer darf was sehen. Drei Stufen: oeffentlich, mitglieder, vorstand.
  */
 final class Zugriff
 {
@@ -18,10 +17,32 @@ final class Zugriff
         $this->grav = $grav;
     }
 
+    /** Ist ueberhaupt jemand angemeldet? */
     public function angemeldet(): bool
     {
         $user = $this->grav['user'] ?? null;
         return $user && $user->authenticated && $user->authorized;
+    }
+
+    /**
+     * Zaehlt der Besucher als Mitglied?
+     *
+     * Ohne `mitglieder_gruppe` ist das jeder Angemeldete -- so war es bis
+     * 1.3.0 ohne Alternative, und auf einer Website mit offener Registrierung
+     * durfte damit jeder das Protokoll der Generalversammlung lesen
+     * (getgrav/grav#4400). Wer eine Gruppe eintraegt, bekommt die engere
+     * Lesart; der Vorstand zaehlt immer dazu.
+     */
+    public function mitglied(): bool
+    {
+        if (!$this->angemeldet()) {
+            return false;
+        }
+        $gruppe = trim((string) $this->grav['config']->get('plugins.cw-verein.mitglieder_gruppe', ''));
+        if ($gruppe === '') {
+            return true;
+        }
+        return $this->inGruppe($gruppe) || $this->vorstand();
     }
 
     public function vorstand(): bool
@@ -29,13 +50,21 @@ final class Zugriff
         if (!$this->angemeldet()) {
             return false;
         }
-        $user = $this->grav['user'];
-        $gruppe = (string) $this->grav['config']->get('plugins.cw-verein.vorstand_gruppe', 'Vorstand');
-        $gruppen = (array) ($user->get('groups') ?? []);
-        if (in_array($gruppe, $gruppen, true)) {
+        $gruppe = trim((string) $this->grav['config']->get('plugins.cw-verein.vorstand_gruppe', 'committee'));
+        if ($gruppe !== '' && $this->inGruppe($gruppe)) {
             return true;
         }
+        $user = $this->grav['user'];
         return (bool) ($user->authorize('admin.super') || $user->authorize('site.vorstand'));
+    }
+
+    private function inGruppe(string $gruppe): bool
+    {
+        $user = $this->grav['user'] ?? null;
+        if (!$user) {
+            return false;
+        }
+        return in_array($gruppe, (array) ($user->get('groups') ?? []), true);
     }
 
     public function erlaubt(string $stufe): bool
@@ -43,7 +72,7 @@ final class Zugriff
         return match ($stufe) {
             'oeffentlich' => true,
             'vorstand'    => $this->vorstand(),
-            default       => $this->angemeldet(),
+            default       => $this->mitglied(),
         };
     }
 }

@@ -1,14 +1,40 @@
 enabled: true
 # Adresse, unter der Dokumente nach Zugriffsprüfung ausgeliefert werden.
 route: /dokument
-# Benutzergruppe, die Dokumente der Stufe «vorstand» sehen darf.
-vorstand_gruppe: Vorstand
+
+# ── Wer zählt als wer ──────────────────────────────────────
+# Benutzergruppe, die Dokumente der Stufe «vorstand» sehen darf. Der Name muss
+# einer Gruppe unter Benutzer -> Gruppen entsprechen; «committee» ist nur die
+# Vorgabe, jeder Verein darf sie nennen, wie er will.
+vorstand_gruppe: committee
+
+# Benutzergruppe, die als Mitglied zählt. LEER heisst: jede angemeldete
+# Person. Das genügt, solange sich niemand selbst anmelden kann -- auf einer
+# Website mit offener Registrierung darf hier keine leere Zeile stehen, sonst
+# liest jeder Besucher mit einem frischen Konto das Protokoll der
+# Generalversammlung.
+mitglieder_gruppe: ''
+
+# Reihenfolge der Vorstandsfunktionen, von oben nach unten. Verglichen wird in
+# Kleinschreibung und als Teilwort; trifft mehr als ein Wort, gilt das
+# genaueste. Leer: nach Funktion und Name.
+# Beispiel: 'präsident, vizepräsident, kassier, sekretär, revisor'
+vorstand_reihenfolge: ''
+
+# Funktionsbezeichnungen, die KEINEN Vorstandsposten bedeuten. Leer: das Wort
+# für «Mitglied» aus der Sprachdatei.
+kein_vorstand: ''
+
 # Zusätzliches Verzeichnis «Wildkameras» (Name, Besitzer, Standort, Koordinaten,
 # Seite) -- für Jagdvereine. Daten unter user/data/wildkameras/wildkameras.json.
 wildkameras: false
 
-# Gliederung der Mitgliederliste. Reihenfolge = Reihenfolge auf der Seite;
-# wer keine Gruppe hat, erscheint unter «mitglieder».
-gruppen:
-  - { schluessel: mitglieder, titel: Vereinsmitglieder }
-  - { schluessel: goenner, titel: Gönner }
+# ── Gliederung der Mitgliederliste ─────────────────────────
+# Reihenfolge = Reihenfolge auf der Seite; wer keine Gruppe hat, erscheint in
+# «mitglieder» oder, wenn es die nicht gibt, in der ersten Gruppe.
+# Leer: eine einzige Gruppe, benannt aus der Sprachdatei.
+# Beispiel:
+#   gruppen:
+#     - { schluessel: mitglieder, titel: Vereinsmitglieder }
+#     - { schluessel: goenner, titel: Gönner }
+gruppen: []

@@ -129,7 +129,20 @@ form:
     datei:
       type: file
       label: PLUGIN_CW_VEREIN.DATEI_LABEL
-      destination: self@
+      # KEIN `destination:` -- Absicht, seit 1.5.0.
+      #
+      # Mit `destination: self@` schlug der Upload in Admin 2.0 fehl:
+      # «Cannot resolve 'self@:' path: scope '' is not a supported owner».
+      # Der Admin-Client waehlt den Weg nach dem Feld: steht ein destination
+      # da, laedt er nach /blueprint-upload hoch, und dessen Aufloeser kennt
+      # nur die Bereiche plugins/, themes/, pages/ und users/ -- fuer ein
+      # Flex-Objekt kommt der Bereich leer an. Ohne destination nimmt er
+      # /flex-objects/<typ>/<key>/media, und das legt die Datei genau dort
+      # ab, wo sie hingehoert: neben dem Objekt.
+      #
+      # Die Fassung bis 1.4.0 war damit in Admin 2.0 gar nicht bedienbar --
+      # kein anderer Blueprint dieser Installation benutzt self@, darum fiel
+      # es nie jemandem auf. Gemeldet an getgrav/grav#4400.
       multiple: false
       accept: ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.jpg', '.jpeg', '.png', '.webp', '.ai', '.dxf', '.zip', '.txt']
       help: PLUGIN_CW_VEREIN.DATEI_HELP
